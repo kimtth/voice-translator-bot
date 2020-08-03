@@ -1,0 +1,23 @@
+.toolbar-button {
+  color: #007aff;
+  font-size: 28px;
+  transition: all 0.1s;
+}
+
+.toolbar-button:hover {
+  cursor: pointer;
+  color: #0063ce;
+}
+
+.toolbar-button:active {
+  color: #007aff;
+  opacity: 0.25;
+}
+
+.toolbar-button-ion-text{
+  content:url(../../assets/sent_icon.png);
+}
+
+.toolbar-button-ion-mic{
+  content:url(../../assets/mic_icon.png);
+}
