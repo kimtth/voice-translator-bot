@@ -4,7 +4,6 @@ var User = require('./models/user');
 var Message = require('./models/message');
 
 createFakeData = function() {
-  // 0, 1, ... 39 로 이루어진 배열 생성 후 포스트 데이터로 변환
   const channels = [...Array(10).keys()].map(i => ({
     id: `${i}`,
     name:

@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-//for creating dummy data
+//for creating dummy data, Need to run only one-time.
 //require('./createFakedata')
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -42,7 +42,7 @@ http.createServer(app).listen(app.get('port'), function(){
     mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useFindAndModify: false})
     .then(() => {
         console.log('Connected to MongoDB')
-        //for creating dummy data
+        //for creating dummy data, Need to run only one-time.
         //createFakeData()
     })
     .catch(e => {
