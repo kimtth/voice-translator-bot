@@ -1,12 +1,11 @@
 import React, {
   useEffect,
-  useState,
+  useState
 } from 'react';
 import Compose from '../Compose';
 import Message from '../Message';
 import moment from 'moment';
 import axios from 'axios';
-
 import './MessageList.css';
 
 const MY_USER_ID = 'user';
@@ -16,10 +15,12 @@ export default function MessageList(props) {
 
   useEffect(() => {
     getMessages();
-  }, [])
+  }, [props.channelID])
 
   const getMessages = () => {
-    axios.get('http://localhost:4000/api/messages/1').then(response => {
+    console.log('start---');
+    console.log(`http://localhost:4000/api/messages/${props.channelID}`);
+    axios.get(`http://localhost:4000/api/messages/${props.channelID}`).then(response => {
       let newMessages = response.data.map(result => {
         return {
           id: `${result.id}`,
@@ -29,7 +30,7 @@ export default function MessageList(props) {
           timestamp: `${result.sentDate}`,
         };
       });
-      setMessages([...messages, ...newMessages])
+      setMessages([...newMessages])
     });
   }
 
@@ -100,7 +101,7 @@ export default function MessageList(props) {
   return(
     <div className="message-list">
       <div className="message-list-container">{renderMessages()}</div>
-      <Compose onRerenderPage={reRenderPage}/>
+      <Compose onRerenderPage={reRenderPage} activeChannelId={props.channelID}/>
     </div>
   );
 }

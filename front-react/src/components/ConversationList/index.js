@@ -5,8 +5,8 @@ import Toolbar from '../Toolbar';
 //import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import bot from '../../assets/bot.jpg';
-
 import './ConversationList.css';
+
 
 export default function ConversationList(props) {
   const [conversations, setConversations] = useState([]);
@@ -31,6 +31,7 @@ export default function ConversationList(props) {
   }
 
   const handleConversationChange = (searchKeyword) => {
+    //console.log(searchKeyword);
     const filterConversations = conversations.filter(
       (conversation) => {
         return conversation.name.toLowerCase().indexOf(searchKeyword.toLowerCase()) > -1;
@@ -42,20 +43,27 @@ export default function ConversationList(props) {
     }
   }
 
+  const handleChannelChange = (e) => {
+      let setValue = e.target.id; 
+      props.setChannelID(setValue);
+  }
+
   return (
     <div className="conversation-list">
       <Toolbar
         title="Translator Bot"
       />
       <ConversationSearch onConversationChange={handleConversationChange}/>
-      {
-        filterConversations.map(conversation =>
-          <ConversationListItem
-            key={conversation.name}
-            data={conversation}
-          />
-        )
-      }
+        {
+          filterConversations.map(conversation =>
+            <ConversationListItem
+              key={conversation.name}
+              data={conversation}
+              onHandle={handleChannelChange}
+              activeChannel={props.channelID}
+            />
+          )
+        }
     </div>
   );
 }

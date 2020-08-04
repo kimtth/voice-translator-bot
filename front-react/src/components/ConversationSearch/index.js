@@ -3,7 +3,7 @@ import './ConversationSearch.css';
 
 export default function ConversationSearch(props) {
 
-  //Lifts up the state. Remove the state component, then call the function of ancestor by props.
+    //Lifts up the state. Remove the state component, then call the function of ancestor by props.
     const handleChange = e => {
       props.onConversationChange(e.target.value);
     };

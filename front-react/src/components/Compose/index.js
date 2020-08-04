@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Compose.css';
 import send from '../../assets/sent_icon.png'
 import mic from '../../assets/mic_icon.png'
@@ -8,6 +8,7 @@ import uuid from 'node-uuid';
 export default function Compose(props) {
 
     const [inputValue, setInputValue] = useState([]);
+
     const handleSubmit = e => {
       if (inputValue === ""){
         e.preventDefault();
@@ -15,7 +16,7 @@ export default function Compose(props) {
       } else {
         const tempMessage = {
           id: `${Date.now()}${uuid.v4()}`,
-          channelID: "1",
+          channelID: `${props.activeChannelId}`,
           text: inputValue,
           user: "user",
         }

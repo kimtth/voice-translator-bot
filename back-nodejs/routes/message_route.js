@@ -30,19 +30,6 @@ module.exports = function(router) {
   })
 
   //post a new message to db
-  router.post('/ddddmessage', function(req, res) {
-    console.log(req);
-
-    var newMessage = new Message(req.body);
-    newMessage.save(function (err, data) {
-      if(err) {
-        console.log(err);
-        return res.status(500).json({msg: 'internal server error'});
-      }
-      res.json(data);
-    });
-  });
-
   router.post("/message", async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', '*');
