@@ -8,6 +8,7 @@ module.exports = function loadUserRoutes(router, passport) {
 
   // get usernames for validating whether a username is available
   router.get('/alluser', function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
     User.find({'username': { $exists: true } }, function(err, data) {
       if(err) {
         console.log(err);

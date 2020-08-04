@@ -16,7 +16,6 @@ module.exports = function (router) {
       .catch(err => res.status(500).send(err));
   });
 
-  // Create new todo document
   router.post('/channels/:name', (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     Channel.create(req.body)

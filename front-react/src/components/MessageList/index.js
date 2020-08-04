@@ -1,16 +1,15 @@
 import React, {
   useEffect,
-  useState
+  useState,
 } from 'react';
 import Compose from '../Compose';
-import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
 import axios from 'axios';
 
 import './MessageList.css';
 
-const MY_USER_ID = 'apple';
+const MY_USER_ID = 'user';
 
 export default function MessageList(props) {
   const [messages, setMessages] = useState([])
@@ -18,7 +17,6 @@ export default function MessageList(props) {
   useEffect(() => {
     getMessages();
   }, [])
-
 
   const getMessages = () => {
     axios.get('http://localhost:4000/api/messages/1').then(response => {
@@ -44,7 +42,7 @@ export default function MessageList(props) {
       let previous = messages[i - 1];
       let current = messages[i];
       let next = messages[i + 1];
-      let isMine = current.user === MY_USER_ID;
+      let isMine = current.user !== MY_USER_ID;
       let currentMoment = moment(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
@@ -94,14 +92,15 @@ export default function MessageList(props) {
     return tempMessages;
   }
 
-    return(
-      <div className="message-list">
-        <div className="message-list-container">{renderMessages()}</div>
+  const reRenderPage = () => {
+    getMessages();
+    renderMessages();
+  }
 
-        <Compose rightItems={[
-          <ToolbarButton key="emoji" icon="ion-ios-happy" />,
-          <ToolbarButton key="audio" icon="ion-ios-mic" />
-        ]}/>
-      </div>
-    );
+  return(
+    <div className="message-list">
+      <div className="message-list-container">{renderMessages()}</div>
+      <Compose onRerenderPage={reRenderPage}/>
+    </div>
+  );
 }

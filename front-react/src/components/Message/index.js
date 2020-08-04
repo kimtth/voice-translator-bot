@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import moment from 'moment';
 import './Message.css';
 
 export default function Message(props) {
+    const messagesEndRef = useRef(null)
     const {
       data,
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp
+      showTimestamp,
     } = props;
 
+    useEffect(() => {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    });
+  
     const friendlyTimestamp = moment(data.timestamp).format('LLLL');
     return (
       <div className={[
@@ -30,6 +35,7 @@ export default function Message(props) {
           <div className="bubble" title={friendlyTimestamp}>
             { data.message }
           </div>
+          <div ref={messagesEndRef} />
         </div>
       </div>
     );

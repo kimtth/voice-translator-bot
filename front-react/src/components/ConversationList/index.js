@@ -45,7 +45,7 @@ export default function ConversationList(props) {
   return (
     <div className="conversation-list">
       <Toolbar
-        title="Messenger"
+        title="Translator Bot"
       />
       <ConversationSearch onConversationChange={handleConversationChange}/>
       {

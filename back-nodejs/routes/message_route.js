@@ -1,5 +1,6 @@
 var Message = require('../models/Message');
 var bodyparser = require('body-parser');
+const multiparty = require('multiparty');
 
 module.exports = function(router) {
   router.use(bodyparser.json());
@@ -29,8 +30,9 @@ module.exports = function(router) {
   })
 
   //post a new message to db
-  router.post('/newmessage', function(req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
+  router.post('/ddddmessage', function(req, res) {
+    console.log(req);
+
     var newMessage = new Message(req.body);
     newMessage.save(function (err, data) {
       if(err) {
@@ -40,4 +42,20 @@ module.exports = function(router) {
       res.json(data);
     });
   });
+
+  router.post("/message", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header("Access-Control-Allow-Headers", "*");
+
+    const newMessage = new Message(req.body)
+    newMessage.save(function (err, data) {
+      if(err) {
+        console.log(err);
+        return res.status(500).json({msg: 'internal server error'});
+      }
+      console.log('Good job!')
+      res.json(data);
+    })
+  })
 }

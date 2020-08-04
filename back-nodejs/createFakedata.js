@@ -26,7 +26,7 @@ createFakeData = function() {
     id: `${i}`,
     channelID: '1',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-    user: 'user1',
+    user: 'user',
   }));
   Message.insertMany(messages, (err, docs) => {
     console.log(docs);
@@ -36,7 +36,7 @@ createFakeData = function() {
     id: `${i}`,
     channelID: '1',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-    user: 'user2',
+    user: 'bot',
   }));
   Message.insertMany(messages2, (err, docs) => {
     console.log(docs);
