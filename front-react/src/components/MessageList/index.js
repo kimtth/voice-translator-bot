@@ -15,7 +15,7 @@ export default function MessageList(props) {
 
   useEffect(() => {
     getMessages();
-  }, [props.channelID])
+  }, [props.channelID]) //not channelID. from the parent, props.channelID.
 
   const getMessages = () => {
     console.log('start---');
