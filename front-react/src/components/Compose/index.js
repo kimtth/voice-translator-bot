@@ -3,27 +3,35 @@ import './Compose.css';
 import send from '../../assets/sent_icon.png'
 //import axios from 'axios';
 import uuid from 'node-uuid';
-import Button from '../Button/button';
-import ToggleButton from '../Button/togglebutton';
+import Button from '../Button/Button';
+import ToggleMicButton from '../Button/ToggleMicButton';
+import * as Config from '../App/Constants'
 
 export default function Compose(props) {
 
     const [inputValue, setInputValue] = useState("");
 
-    const handleSubmit = e => {
-      if (e.target.id === "send"){
-        if (inputValue === ""){ //string empty check. not not
-          e.preventDefault();
-          return
-        } else {
-          handleMessage();
-          handleBotMessage();
-        }
-      } else if (e.target.id === "mic") {
-        console.log("mic");
+    const handleSendSubmit = e => {
+      if (inputValue === ""){ //string empty check.
+        e.preventDefault();
+        return
+      } else {
+        handleMessage();
+        handleBotMessage();
       }
       e.preventDefault();
     };
+
+    const handleMicSubmit = (msg) => {
+      if(msg){
+        console.log("call: " + msg);
+        setInputValue(msg);
+      }
+      
+      //handleMessage();
+      //handleBotMessage();
+      //e.preventDefault();
+    }
 
     const handleMessage = () => {
       const tempMessage = {
@@ -32,8 +40,8 @@ export default function Compose(props) {
         text: inputValue,
         user: "user"
       }
-      //instead f axios, use fetch. axios post stucks in cors issue.
-      fetch(`http://localhost:4000/api/message`, {
+      //instead of axios, use fetch. axios post stucks in cors issue.
+      fetch(`${Config.API_URL}/api/message`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(tempMessage)
@@ -60,7 +68,7 @@ export default function Compose(props) {
         channelID: `${props.activeChannelId}`,
         user: "bot"
       }
-      fetch(`http://localhost:4000/api/bot/message`, {
+      fetch(`${Config.API_URL}/api/bot/message`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(tempMessage)
@@ -76,7 +84,7 @@ export default function Compose(props) {
         console.log('error: ' + error);
         this.setState({ requestFailed: true });
       });
-      
+
       props.onRerenderPage();
       setInputValue('');
     }
@@ -94,8 +102,8 @@ export default function Compose(props) {
           placeholder="Type a message"
           value={inputValue} onChange={handleChange}
         />
-        <Button img={send} type={"submit"} id={"send"} onClick={handleSubmit}/>
-        <ToggleButton type={"submit"} id={"mic"} onClick={handleSubmit} />
+        <Button img={send} type={"submit"} id={"send"} onHandle={handleSendSubmit}/>
+        <ToggleMicButton type={"submit"} id={"mic"} onHandle={handleMicSubmit} />
       </div>
       </form>
     );

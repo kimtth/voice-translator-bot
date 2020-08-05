@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "microsoft-cognitiveservices-speech-sdk": "^1.13.0",
     "moment": "^2.23.0",
     "node-uuid": "^1.4.8",
     "react": "^16.10.1",
