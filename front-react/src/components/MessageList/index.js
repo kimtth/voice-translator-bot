@@ -18,7 +18,6 @@ export default function MessageList(props) {
   }, [props.channelID]) //not channelID. from the parent, props.channelID.
 
   const getMessages = () => {
-    console.log('start---');
     console.log(`http://localhost:4000/api/messages/${props.channelID}`);
     axios.get(`http://localhost:4000/api/messages/${props.channelID}`).then(response => {
       let newMessages = response.data.map(result => {

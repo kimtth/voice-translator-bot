@@ -8,6 +8,9 @@ In Progress - @TODO
 
 
 ```bash
+npm install
+yarn install
+
 nodemon app
 yarn start
 

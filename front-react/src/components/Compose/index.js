@@ -1,35 +1,39 @@
 import React, { useState } from 'react';
 import './Compose.css';
 import send from '../../assets/sent_icon.png'
-import mic from '../../assets/mic_icon.png'
 //import axios from 'axios';
 import uuid from 'node-uuid';
+import Button from '../Button/button';
+import ToggleButton from '../Button/togglebutton';
 
 export default function Compose(props) {
 
     const [inputValue, setInputValue] = useState([]);
 
     const handleSubmit = e => {
-      if (inputValue === ""){
-        e.preventDefault();
-        return
-      } else {
-        const tempMessage = {
-          id: `${Date.now()}${uuid.v4()}`,
-          channelID: `${props.activeChannelId}`,
-          text: inputValue,
-          user: "user",
+      if (e.target.id === "send"){
+        if (!!inputValue){ //string empty check. not not
+          e.preventDefault();
+          return
+        } else {
+          const tempMessage = {
+            id: `${Date.now()}${uuid.v4()}`,
+            channelID: `${props.activeChannelId}`,
+            text: inputValue,
+            user: "user"
+          }
+          //instead f axios, use fetch. axios post stucks in cors issue.
+          fetch('http://localhost:4000/api/message', {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(tempMessage)
+          });
+          props.onRerenderPage();
+          setInputValue('');
         }
-        //instead f axios, use fetch. axios post stucks in cors issue.
-        fetch('http://localhost:4000/api/message', {
-          method: 'post',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(tempMessage)
-        });
+      } else if (e.target.id === "mic") {
+        console.log("mic");
       }
-
-      props.onRerenderPage();
-      setInputValue('');
       e.preventDefault();
     };
 
@@ -38,7 +42,7 @@ export default function Compose(props) {
     }
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form>
       <div className="compose">
         <input
           type="text"
@@ -46,8 +50,8 @@ export default function Compose(props) {
           placeholder="Type a message"
           value={inputValue} onChange={handleChange}
         />
-        <button type="submit" className="button"><img src={send} alt="Send" width="30" height="25"/></button>
-        <button type="submit" className="button"><img src={mic} alt="Mic" width="30" height="25"/></button>
+        <Button img={send} type={"submit"} id={"send"} onClick={handleSubmit}/>
+        <ToggleButton type={"submit"} id={"mic"} onClick={handleSubmit} />
       </div>
       </form>
     );
