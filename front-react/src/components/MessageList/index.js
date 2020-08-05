@@ -12,14 +12,15 @@ const MY_USER_ID = 'user';
 
 export default function MessageList(props) {
   const [messages, setMessages] = useState([])
-
+  const API_URI = "http://localhost:4000";
+  
   useEffect(() => {
     getMessages();
   }, [props.channelID]) //not channelID. from the parent, props.channelID.
 
   const getMessages = () => {
-    console.log(`http://localhost:4000/api/messages/${props.channelID}`);
-    axios.get(`http://localhost:4000/api/messages/${props.channelID}`).then(response => {
+    console.log(`${API_URI}/api/messages/${props.channelID}`);
+    axios.get(`${API_URI}/api/messages/${props.channelID}`).then(response => {
       let newMessages = response.data.map(result => {
         return {
           id: `${result.id}`,

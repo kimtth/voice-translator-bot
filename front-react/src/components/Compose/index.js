@@ -33,11 +33,23 @@ export default function Compose(props) {
         user: "user"
       }
       //instead f axios, use fetch. axios post stucks in cors issue.
-      fetch('http://localhost:4000/api/message', {
+      fetch(`http://localhost:4000/api/message`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(tempMessage)
+      })
+      .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+      .then((data) => {
+        console.log("DATA STORED");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ requestFailed: true });
       });
+
       props.onRerenderPage();
       setInputValue('');
     }
@@ -48,11 +60,23 @@ export default function Compose(props) {
         channelID: `${props.activeChannelId}`,
         user: "bot"
       }
-      fetch('http://localhost:4000/api/bot/message', {
+      fetch(`http://localhost:4000/api/bot/message`, {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(tempMessage)
+      })
+      .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+      .then((data) => {
+        console.log("DATA STORED");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ requestFailed: true });
       });
+      
       props.onRerenderPage();
       setInputValue('');
     }
