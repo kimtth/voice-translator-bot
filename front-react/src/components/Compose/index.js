@@ -8,34 +8,54 @@ import ToggleButton from '../Button/togglebutton';
 
 export default function Compose(props) {
 
-    const [inputValue, setInputValue] = useState([]);
+    const [inputValue, setInputValue] = useState("");
 
     const handleSubmit = e => {
       if (e.target.id === "send"){
-        if (!!inputValue){ //string empty check. not not
+        if (inputValue === ""){ //string empty check. not not
           e.preventDefault();
           return
         } else {
-          const tempMessage = {
-            id: `${Date.now()}${uuid.v4()}`,
-            channelID: `${props.activeChannelId}`,
-            text: inputValue,
-            user: "user"
-          }
-          //instead f axios, use fetch. axios post stucks in cors issue.
-          fetch('http://localhost:4000/api/message', {
-            method: 'post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(tempMessage)
-          });
-          props.onRerenderPage();
-          setInputValue('');
+          handleMessage();
+          handleBotMessage();
         }
       } else if (e.target.id === "mic") {
         console.log("mic");
       }
       e.preventDefault();
     };
+
+    const handleMessage = () => {
+      const tempMessage = {
+        id: `${Date.now()}${uuid.v4()}`,
+        channelID: `${props.activeChannelId}`,
+        text: inputValue,
+        user: "user"
+      }
+      //instead f axios, use fetch. axios post stucks in cors issue.
+      fetch('http://localhost:4000/api/message', {
+        method: 'post',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(tempMessage)
+      });
+      props.onRerenderPage();
+      setInputValue('');
+    }
+
+    const handleBotMessage = () => {
+      const tempMessage = {
+        id: `${Date.now()}${uuid.v4()}`,
+        channelID: `${props.activeChannelId}`,
+        user: "bot"
+      }
+      fetch('http://localhost:4000/api/bot/message', {
+        method: 'post',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(tempMessage)
+      });
+      props.onRerenderPage();
+      setInputValue('');
+    }
 
     const handleChange = e => {
       setInputValue(e.target.value)
