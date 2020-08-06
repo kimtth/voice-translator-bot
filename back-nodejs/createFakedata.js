@@ -7,7 +7,7 @@ createFakeData = function() {
   const channels = [...Array(10).keys()].map(i => ({
     id: `${i}`,
     name:
-      `Test${i}`
+      `Channel${i}`
   }));
   Channel.insertMany(channels, (err, docs) => {
     console.log(docs);

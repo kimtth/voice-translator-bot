@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import ConversationSearch from '../ConversationSearch';
-import ConversationListItem from '../ConversationListItem';
-import Toolbar from '../Toolbar';
+import ConversationSearch from '../ConversationSearch/conversationsearch';
+import ConversationListItem from '../ConversationListItem/conversationlistitem';
+import Toolbar from '../Toolbar/toolbar';
 //import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import bot from '../../assets/bot.jpg';

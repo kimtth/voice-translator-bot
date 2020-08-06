@@ -2,8 +2,8 @@ import React, {
   useEffect,
   useState
 } from 'react';
-import Compose from '../Compose';
-import Message from '../Message';
+import Compose from '../Compose/compose';
+import Message from '../Message/message';
 import moment from 'moment';
 import axios from 'axios';
 import './MessageList.css';

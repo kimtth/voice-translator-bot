@@ -1,6 +1,7 @@
 var Message = require('../models/Message');
 var bodyparser = require('body-parser');
 const multiparty = require('multiparty');
+var Translate = require('./translate');
 
 module.exports = function(router) {
   router.use(bodyparser.json());
@@ -47,26 +48,24 @@ module.exports = function(router) {
 
   router.post("/bot/message", async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    
+
+    if(!req.body.text){
+      return;
+    }
+
     const newMessage = new Message({
       "id": req.body.id,
       "channelID": req.body.channelID,
-      "text": botAnswer(),
+      "text": req.body.text,
       "user": req.body.user
     });
     newMessage.save(function (err, data) {
       if(err) {
-        console.log(err);
+        //console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
       console.log('Good job!')
       res.json(data);
     })
-  
   })
-}
-
-const botAnswer = function() {
-  let message = "The bot is currently being created for response against your query.";
-  return message;
 }

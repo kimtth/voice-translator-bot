@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ConversationList from '../ConversationList';
-import MessageList from '../MessageList';
+import ConversationList from '../ConversationList/conversationlist';
+import MessageList from '../MessageList/messagelist';
 import './Messenger.css';
 
 export default function Messenger(props) {

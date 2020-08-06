@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Compose.css';
 import send from '../../assets/sent_icon.png'
 //import axios from 'axios';
@@ -10,6 +10,11 @@ import * as Config from '../App/Constants'
 export default function Compose(props) {
 
     const [inputValue, setInputValue] = useState("");
+    const [translateValue, setTranslateValue] = useState("");
+    useEffect(() => {
+      handleBotMessage();
+    }, [translateValue])
+
 
     const handleSendSubmit = e => {
       if (inputValue === ""){ //string empty check.
@@ -17,7 +22,8 @@ export default function Compose(props) {
         return
       } else {
         handleMessage();
-        handleBotMessage();
+        handleTranslate(inputValue, "ja", "en");
+        //handleBotMessage();
       }
       e.preventDefault();
     };
@@ -51,20 +57,47 @@ export default function Compose(props) {
         else return response.json();
       })
       .then((data) => {
-        console.log("DATA STORED");
+        console.log("DATA STORED (user)");
       })
       .catch((error) => {
         console.log('error: ' + error);
-        this.setState({ requestFailed: true });
       });
 
       props.onRerenderPage();
       setInputValue('');
     }
 
+    const handleTranslate = (str_text, from, to) => {
+      let URL = Config.TRANSLATOR_TEXT_ENDPOINT + '/translate?api-version=3.0&from=' + from + '&to=' + to + '&profanityAction=Marked';
+      let arrOfObj = [{ Text: str_text }];
+
+      fetch(URL, {
+        method: 'post',
+        headers: {
+            'Ocp-Apim-Subscription-Key': Config.TRANSLATOR_TEXT_SUBSCRIPTION_KEY,
+            'Ocp-Apim-Subscription-Region': Config.TRANSLATOR_TEXT_REGION_AKA_LOCATION,
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(arrOfObj)
+      })
+      .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+      .then((data) => {
+        let rtn = data[0].translations[0].text;
+        console.log(rtn);
+        setTranslateValue(rtn);
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
+    }
+
     const handleBotMessage = () => {
       const tempMessage = {
         id: `${Date.now()}${uuid.v4()}`,
+        text: translateValue,
         channelID: `${props.activeChannelId}`,
         user: "bot"
       }
@@ -78,11 +111,10 @@ export default function Compose(props) {
         else return response.json();
       })
       .then((data) => {
-        console.log("DATA STORED");
+        console.log("DATA STORED (bot)");
       })
       .catch((error) => {
         console.log('error: ' + error);
-        this.setState({ requestFailed: true });
       });
 
       props.onRerenderPage();
