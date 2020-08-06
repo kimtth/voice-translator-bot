@@ -1,6 +1,6 @@
 # voice-translator-bot
 
-## Basic Local funtionalities are working.
+## The functionalities.
 
 * Channel Searching
 * Channel Selection
