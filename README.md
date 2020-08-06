@@ -4,11 +4,11 @@
 
 * Channel Searching
 * Channel Selection
-* Send and Response with Bot
+* Send an inquiry and Response from Bot
 * UI & Toggle Button (Mic Button)
 * API (Express & MongoDB)
-* Integrate with Azure Bot Service (Speech to Text)
-* Integrate with Azure Bot Service (Translate (ja->en))
+* Integrate with Azure Cognitive Service (Speech to Text)
+* Integrate with Azure Cognitive Service (Translate (ja->en))
 
 ```bash
 npm install
