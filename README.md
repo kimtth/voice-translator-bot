@@ -6,6 +6,7 @@
 * Channel Selection
 * Send an inquiry and Response from Bot
 * UI & Toggle Button (Mic Button)
+* Blue colored scroll bar & Auto Scrolling
 * API (Express & MongoDB)
 * Integrate with Azure Cognitive Service (Speech to Text)
 * Integrate with Azure Cognitive Service (Translate (ja->en))
