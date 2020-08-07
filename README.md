@@ -23,4 +23,4 @@ yarn add 'module_name'
 + Please install moesif origin & cors changer of chrome extension.
 + Please config proper values in 'front-react/src/components/Constants.js'
 
-![preview](https://github.com/kimtth/voice-translator-bot/blob/master/ref/screenshot.gif?raw=true)
+![preview](https://github.com/kimtth/voice-translator-bot/blob/master/references/screenshot.gif?raw=true)
