@@ -1,5 +1,9 @@
 # voice-translator-bot
 
+Voice recognition and translation bot, which is developed by MERN stack, the most famous composition while developing backend and frontend. 
+
+The aim of this project is for learning MERN stack and integrating it with Azure cognitive service.
+
 ## The functionalities.
 
 * Channel Searching
@@ -23,5 +27,6 @@ yarn add 'module_name'
 ```
 + Please install moesif origin & cors changer of chrome extension.
 + Please config proper values in 'front-react/src/components/Constants.js'
++ Pleas install MongoDB, then creating the sample data using creatFakeData.js.
 
 ![preview](https://github.com/kimtth/voice-translator-bot/blob/master/references/screenshot.gif?raw=true)
