@@ -4,7 +4,7 @@ Voice recognition and translation bot, which is developed by MERN stack, the mos
 
 The aim of this project is for learning MERN stack and integrating it with Azure cognitive service.
 
-## The functionalities.
+## Features
 
 * Channel Searching
 * Channel Selection
