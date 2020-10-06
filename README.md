@@ -34,26 +34,25 @@ yarn add 'module_name'
 ## MongoDB Tips
 
 ### Add field to all documents
+
+```mongodb
 db.channels.update({},{$set : { "owner" : true}} , false, true);
+```
 
 ### Rename the exists document
 
+```mongodb
 db.user.update({}, {$rename:{"Id":"userId"}}, false, true);
-
 db.user.update({}, {$rename:{"name":"username"}}, false, true);
-
 db.channels.update({},{$set : { "password" : "1234"}} , false, true);
+```
 
 ### Transaction
+
+```mongodb
 session = db.getMongo().startSession()
-
 session.startTransaction({ readConcern: { level: "snapshot" }, writeConcern: { w: "majority" } } );
-
-or
-
 session.startTransaction()
-
-
 session.commitTransaction()
-
 session.abortTransaction() 
+```
